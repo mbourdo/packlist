@@ -1,154 +1,140 @@
-/* Reset */
+/* ========== RESET ========== */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Arial', sans-serif;
-    color: #222;
-    background-color: #f5f7fa;
-    line-height: 1.6;
-    padding: 0 1rem;
-  }
-  
-  /* Navbar */
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    position: sticky;
-    top: 0;
-    background-color: #fff;
-    z-index: 1000;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #0077cc;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  .menu-toggle {
-    display: none;
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-  }
-  
-  /* Hero Section */
-  .hero {
-    text-align: center;
-    padding: 4rem 1rem;
-    background: #0077cc;
-    color: #fff;
-    margin-top: 1rem;
-    border-radius: 8px;
-  }
-  
-  .hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .hero p {
-    max-width: 600px;
-    margin: 0 auto 2rem;
-  }
-  
-  .cta-btn {
-    background-color: #fff;
-    color: #0077cc;
-    padding: 0.8rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s;
-  }
-  
-  .cta-btn:hover {
-    background-color: #e6f2ff;
-  }
-  
-  /* Features */
-  .features {
-    padding: 3rem 0;
-  }
-  
-  .features h2 {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-  }
-  
-  .feature-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-  
-  .feature {
-    background: #fff;
-    padding: 1.5rem;
-    width: 260px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  }
-  
-  footer {
-    text-align: center;
-    padding: 1rem 0;
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 2rem;
-  }
-  
-  /* Mobile */
-  @media (max-width: 768px) {
-    .nav-links {
-      display: none;
-      flex-direction: column;
-      background-color: #fff;
-      position: absolute;
-      top: 60px;
-      right: 1rem;
-      padding: 1rem;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-  
-    .nav-links.active {
-      display: flex;
-    }
-  
-    .menu-toggle {
-      display: block;
-    }
-  
-    .hero h1 {
-      font-size: 2rem;
-    }
-  
-    .feature-grid {
-      flex-direction: column;
-      align-items: center;
-    }
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ========== BODY ========== */
+body {
+  font-family: 'Arial', sans-serif;
+  color: #222;
+  background-color: #f5f7fa;
+  line-height: 1.6;
+  padding: 0 1rem;
+}
+
+/* ========== NAVIGATION BAR ========== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  z-index: 1000;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0077cc;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+}
+
+/* ========== TRIP SETUP FORM ========== */
+.trip-setup {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.trip-setup h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.trip-setup label {
+  display: block;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.trip-setup input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.trip-setup button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+.trip-setup button:hover {
+  background-color: #0056b3;
+}
+
+/* ========== PACKING LIST OPTIONS ========== */
+.packing-options {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.toggle-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.toggle-container button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.toggle-container button:hover {
+  background-color: #0056b3;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 2rem;
+}
+
+/* ========== UTILITY CLASSES ========== */
+.hidden {
+  display: none;
+}
