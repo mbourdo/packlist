@@ -1,14 +1,10 @@
+
 const calendarGrid = document.querySelector('.calendar-grid');
 const timeColumn = document.querySelector('.time-column');
 const tripDestination = document.getElementById('tripDestination');
 
-const eventModal = document.getElementById('eventModal');
-const eventNameInput = document.getElementById('eventName');
-const eventItemsInput = document.getElementById('eventItems');
-const saveEventButton = document.getElementById('saveEvent');
-const cancelEventButton = document.getElementById('cancelEvent');
-
-let startSlot = null;
+let isDragging = false;
+let selectedEvent = null;
 
 // Load trip destination from localStorage
 document.addEventListener('DOMContentLoaded', () => {
@@ -26,51 +22,45 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Generate time slots
-  for (let i = 0; i < 7 * 14; i++) {
+  for (let i = 0; i < 7 * 15; i++) {
     const slot = document.createElement('div');
     slot.classList.add('time-slot');
     calendarGrid.appendChild(slot);
 
-    // Dragging logic
-    slot.addEventListener('mousedown', (e) => {
-      startSlot = e.target;
-      e.target.classList.add('highlight');
-    });
-
-    slot.addEventListener('mouseup', (e) => {
-      e.target.classList.remove('highlight');
-      openEventModal(e.target);
+    // Click to create an event
+    slot.addEventListener('click', (e) => {
+      if (!isDragging) createEvent(e.target);
     });
   }
 });
 
-// Open event modal
-function openEventModal(slot) {
-  eventModal.classList.remove('hidden');
-  saveEventButton.onclick = () => saveEvent(slot);
-  cancelEventButton.onclick = closeEventModal;
-}
-
-// Save event
-function saveEvent(slot) {
-  const name = eventNameInput.value;
-  const items = eventItemsInput.value;
-
-  if (!name) return alert("Please enter an event name!");
-
+// Create a new event
+function createEvent(slot) {
   const eventBlock = document.createElement('div');
   eventBlock.classList.add('event-block');
-  eventBlock.innerText = `${name} \n(${items})`;
+  eventBlock.innerText = "New Event";
   slot.appendChild(eventBlock);
 
-  closeEventModal();
-}
+  // Start resizing event
+  eventBlock.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    selectedEvent = eventBlock;
+    e.stopPropagation();
+  });
 
-// Close modal
-function closeEventModal() {
-  eventModal.classList.add('hidden');
-  eventNameInput.value = "";
-  eventItemsInput.value = "";
+  // Stop resizing event
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    selectedEvent = null;
+  });
+
+  // Resize the event by dragging
+  document.addEventListener('mousemove', (e) => {
+    if (isDragging && selectedEvent) {
+      const newHeight = parseInt(selectedEvent.style.height || 60) + e.movementY;
+      selectedEvent.style.height = `${Math.max(30, newHeight)}px`;
+    }
+  });
 }
 
 // Toggle View

@@ -1,107 +1,88 @@
-/* ========== TRIP HEADER ========== */
-.trip-header {
-  text-align: center;
+/* ========== GENERAL STYLES ========== */
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+}
+
+/* ========== HEADER ========== */
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+}
+
+.top-section h2 {
   font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 15px;
   color: #333;
 }
 
-/* ========== CALENDAR LAYOUT ========== */
-.calendar-layout {
+.view-toggle {
   display: flex;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-/* Left sidebar */
-.sidebar {
-  width: 150px;
-  display: flex;
-  flex-direction: column;
   gap: 10px;
 }
 
-.sidebar button {
-  padding: 10px;
+.view-toggle button {
+  padding: 8px 12px;
   border: none;
-  font-size: 1rem;
+  background: #ddd;
   cursor: pointer;
-  background-color: #ddd;
+  font-size: 1rem;
 }
 
-.sidebar .active {
-  background-color: #007bff;
+.view-toggle .active {
+  background: #007bff;
   color: white;
 }
 
-/* ========== CALENDAR VIEW ========== */
+/* ========== CALENDAR LAYOUT ========== */
 .calendar-container {
-  flex-grow: 1;
+  display: flex;
+  border: 1px solid #ddd;
 }
 
-/* Time column */
+/* Time column on the left */
 .time-column {
   width: 80px;
   display: flex;
   flex-direction: column;
-  text-align: right;
   padding-right: 10px;
+  background: #f1f1f1;
+  text-align: right;
 }
 
 .time-label {
-  height: 50px;
-  line-height: 50px;
+  height: 60px;
+  line-height: 60px;
   font-size: 14px;
   color: #666;
 }
 
-/* Calendar Grid */
+/* Calendar grid */
 .calendar-grid {
   display: grid;
   flex-grow: 1;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(14, 50px);
-  border: 1px solid #ddd;
-  position: relative;
+  grid-template-rows: repeat(15, 60px);
+  border-left: 1px solid #ddd;
 }
 
-/* Individual time slots */
+/* Time slots */
 .time-slot {
-  border: 1px solid #ddd;
-  min-height: 50px;
-  background: white;
+  border-bottom: 1px solid #ddd;
   position: relative;
+  background: white;
 }
 
-/* Event blocks */
+/* Event block */
 .event-block {
   background: #007bff;
   color: white;
   padding: 5px;
   position: absolute;
-  width: 100%;
+  width: 90%;
   border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Modal */
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  display: none;
-}
-
-.modal-content {
-  text-align: center;
-}
-
-.hidden {
-  display: none;
+  cursor: grab;
+  user-select: none;
 }
