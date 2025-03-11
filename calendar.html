@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendar View - Packtor</title>
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/calendar.css">  
+  <link rel="stylesheet" href="css/calendar.css">
 </head>
 <body>
 
@@ -21,43 +21,42 @@
     </nav>
   </header>
 
+  <!-- Toggle for Calendar vs Composite List -->
+  <div class="view-toggle">
+    <button id="calendarViewBtn" class="active">Calendar View</button>
+    <button id="compositeViewBtn">Composite List</button>
+  </div>
+
   <main>
-    <h1>Calendar View</h1>
-    <p>Drag new events onto the calendar to create them.</p>
-
     <div class="calendar-container">
-      <!-- Calendar Sidebar (Draggable Items) -->
-      <div class="event-sidebar">
-        <h3>New Events</h3>
-        <div class="event draggable" draggable="true">Clothes</div>
-        <div class="event draggable" draggable="true">Toiletries</div>
-        <div class="event draggable" draggable="true">Electronics</div>
-        <div class="event draggable" draggable="true">Documents</div>
+      <div class="time-column">
+        <!-- Time Labels -->
       </div>
-
-      <!-- Weekly Calendar Grid -->
-      <div class="calendar">
-        <div class="week-days">
-          <div class="day">Mon</div>
-          <div class="day">Tue</div>
-          <div class="day">Wed</div>
-          <div class="day">Thu</div>
-          <div class="day">Fri</div>
-          <div class="day">Sat</div>
-          <div class="day">Sun</div>
-        </div>
-
-        <div class="calendar-grid">
-          <!-- Generates time slots dynamically -->
-        </div>
+      <div class="calendar-grid">
+        <!-- Time slots get generated dynamically -->
       </div>
     </div>
   </main>
+
+  <!-- Modal for Event Creation -->
+  <div class="modal hidden" id="eventModal">
+    <div class="modal-content">
+      <h2>Create Event</h2>
+      <label for="eventName">Event Name:</label>
+      <input type="text" id="eventName" placeholder="Enter event name">
+
+      <label for="eventItems">Clothes & Items:</label>
+      <input type="text" id="eventItems" placeholder="E.g., Jacket, Shoes, Hat">
+
+      <button id="saveEvent">Save</button>
+      <button id="cancelEvent">Cancel</button>
+    </div>
+  </div>
 
   <footer>
     <p>&copy; 2025 Packtor. All rights reserved.</p>
   </footer>
 
-  <script src="js/calendar.js"></script>  
+  <script src="js/calendar.js"></script>
 </body>
 </html>
