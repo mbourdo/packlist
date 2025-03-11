@@ -21,35 +21,26 @@
     </nav>
   </header>
 
-  <!-- Toggle for Calendar vs Composite List -->
-  <div class="view-toggle">
-    <button id="calendarViewBtn" class="active">Calendar View</button>
-    <button id="compositeViewBtn">Composite List</button>
+  <!-- Trip Destination Header -->
+  <div class="trip-header">
+    <h2 id="tripDestination">Packing List for <span>...</span></h2>
   </div>
 
-  <main>
+  <div class="calendar-layout">
+    <!-- Left Sidebar (Toggle) -->
+    <div class="sidebar">
+      <button id="calendarViewBtn" class="active">Calendar View</button>
+      <button id="compositeViewBtn">Composite List</button>
+    </div>
+
+    <!-- Calendar Main Content -->
     <div class="calendar-container">
       <div class="time-column">
-        <!-- Time Labels -->
+        <!-- Time Labels get generated dynamically -->
       </div>
       <div class="calendar-grid">
         <!-- Time slots get generated dynamically -->
       </div>
-    </div>
-  </main>
-
-  <!-- Modal for Event Creation -->
-  <div class="modal hidden" id="eventModal">
-    <div class="modal-content">
-      <h2>Create Event</h2>
-      <label for="eventName">Event Name:</label>
-      <input type="text" id="eventName" placeholder="Enter event name">
-
-      <label for="eventItems">Clothes & Items:</label>
-      <input type="text" id="eventItems" placeholder="E.g., Jacket, Shoes, Hat">
-
-      <button id="saveEvent">Save</button>
-      <button id="cancelEvent">Cancel</button>
     </div>
   </div>
 
