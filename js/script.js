@@ -24,9 +24,9 @@ tripForm?.addEventListener('submit', function(event) {
 
 // Button navigation for list type selection
 document.getElementById('calendarViewBtn')?.addEventListener('click', function() {
-    window.location.href = 'calendar-view.html'; // Redirects to Calendar View page
+    window.location.href = 'calendar.html'; // Redirects to Calendar View page
 });
 
 document.getElementById('compositeViewBtn')?.addEventListener('click', function() {
-    window.location.href = 'composite-list.html'; // Redirects to Composite List page
+    window.location.href = 'composite.html'; // Redirects to Composite List page
 });
