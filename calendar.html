@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calendar View - Packtor</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/calendar.css">  <!-- New Calendar CSS -->
 </head>
 <body>
 
@@ -13,7 +14,7 @@
       <div class="logo">Packtor</div>
       <button class="menu-toggle">&#9776;</button>
       <ul class="nav-links">
-        <li><a href="create.html" class="active">Create List</a></li>
+        <li><a href="create.html">Create List</a></li>
         <li><a href="index.html">How It Works</a></li>
         <li><a href="#">Login</a></li>
       </ul>
@@ -21,13 +22,42 @@
   </header>
 
   <main>
-    <h1>Calendar View Packing List</h1>
-    <p>Coming soon...</p>
+    <h1>Calendar View</h1>
+    <p>Drag new events onto the calendar to create them.</p>
+
+    <div class="calendar-container">
+      <!-- Calendar Sidebar (Draggable Items) -->
+      <div class="event-sidebar">
+        <h3>New Events</h3>
+        <div class="event draggable" draggable="true">Clothes</div>
+        <div class="event draggable" draggable="true">Toiletries</div>
+        <div class="event draggable" draggable="true">Electronics</div>
+        <div class="event draggable" draggable="true">Documents</div>
+      </div>
+
+      <!-- Weekly Calendar Grid -->
+      <div class="calendar">
+        <div class="week-days">
+          <div class="day">Mon</div>
+          <div class="day">Tue</div>
+          <div class="day">Wed</div>
+          <div class="day">Thu</div>
+          <div class="day">Fri</div>
+          <div class="day">Sat</div>
+          <div class="day">Sun</div>
+        </div>
+
+        <div class="calendar-grid">
+          <!-- Generates time slots dynamically -->
+        </div>
+      </div>
+    </div>
   </main>
 
   <footer>
     <p>&copy; 2025 Packtor. All rights reserved.</p>
   </footer>
 
+  <script src="js/calendar.js"></script>  <!-- New Calendar JavaScript -->
 </body>
 </html>
