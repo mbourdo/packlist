@@ -2,6 +2,7 @@
 body {
   font-family: Arial, sans-serif;
   background: #f8f9fa;
+  margin: 0;
 }
 
 /* ========== HEADER ========== */
@@ -13,55 +14,71 @@ body {
   margin-bottom: 10px;
 }
 
-.top-section h2 {
-  font-size: 1.5rem;
-  color: #333;
-}
-
-.view-toggle {
+/* ========== WEEK HEADER ========== */
+.week-header {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
+  padding: 10px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
-.view-toggle button {
-  padding: 8px 12px;
+.week-header button {
+  padding: 5px 10px;
   border: none;
   background: #ddd;
   cursor: pointer;
   font-size: 1rem;
-}
-
-.view-toggle .active {
-  background: #007bff;
-  color: white;
+  border-radius: 5px;
 }
 
 /* ========== CALENDAR LAYOUT ========== */
-.calendar-container {
+.calendar-layout {
   display: flex;
 }
 
-/* Time column */
-.time-column {
-  width: 80px;
-  display: flex;
-  flex-direction: column;
-  padding-right: 10px;
+/* ========== SIDEBAR FOR EVENTS ========== */
+.event-sidebar {
+  width: 200px;
   background: #f1f1f1;
-  text-align: right;
+  padding: 15px;
+  border-right: 1px solid #ddd;
 }
 
-.time-label {
-  height: 60px;
-  line-height: 60px;
-  font-size: 14px;
-  color: #666;
+.event-sidebar h3 {
+  text-align: center;
 }
 
-/* Calendar grid */
+.event {
+  background: #007bff;
+  color: white;
+  padding: 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: grab;
+}
+
+/* ========== WEEKDAY TITLES ========== */
+.weekday-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  background: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* ========== CALENDAR GRID ========== */
+.calendar-container {
+  flex-grow: 1;
+}
+
 .calendar-grid {
   display: grid;
-  flex-grow: 1;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: repeat(15, 60px);
   border-left: 1px solid #ddd;
@@ -86,51 +103,13 @@ body {
   background: white;
 }
 
-/* ========== WEEK HEADER ========== */
-.week-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  background: #f8f9fa;
-  border-bottom: 1px solid #ddd;
-}
-
-.week-header h3 {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-.week-header button {
-  padding: 5px 10px;
-  border: none;
-  background: #ddd;
-  cursor: pointer;
-  font-size: 1rem;
+/* Event blocks */
+.event-block {
+  background: #007bff;
+  color: white;
+  padding: 5px;
+  position: absolute;
+  width: 100%;
   border-radius: 5px;
+  cursor: pointer;
 }
-
-.week-header button:hover {
-  background: #ccc;
-}
-
-/* ========== WEEKDAY ROW ========== */
-.weekday-row {
-  display: flex;
-  align-items: center;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0;
-}
-
-/* Weekday titles (Sun, Mon, Tue...) */
-.weekday-grid {
-  display: grid;
-  flex-grow: 1;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-weight: bold;
-  color: #333;
-}
-

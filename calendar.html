@@ -38,21 +38,24 @@
     <button id="todayBtn">Today</button>
   </div>
 
-  <!-- Weekday Titles -->
-  <div class="weekday-row">
-    <div class="time-column"></div>  <!-- Empty space for time labels -->
-    <div class="weekday-grid">
-      <!-- Day names will be added dynamically -->
+  <div class="calendar-layout">
+    <!-- Sidebar for draggable events -->
+    <div class="event-sidebar">
+      <h3>Create Events</h3>
+      <div class="event draggable" draggable="true">Clothes</div>
+      <div class="event draggable" draggable="true">Toiletries</div>
+      <div class="event draggable" draggable="true">Electronics</div>
+      <div class="event draggable" draggable="true">Documents</div>
     </div>
-  </div>
 
-  <!-- Calendar Layout -->
-  <div class="calendar-container">
-    <div class="time-column">
-      <!-- Time Labels will be added dynamically -->
-    </div>
-    <div class="calendar-grid">
-      <!-- Calendar slots will be added dynamically -->
+    <!-- Main Calendar -->
+    <div class="calendar-container">
+      <div class="weekday-grid">
+        <!-- Days of the week -->
+      </div>
+      <div class="calendar-grid">
+        <!-- Time slots will be added dynamically -->
+      </div>
     </div>
   </div>
 
