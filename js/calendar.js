@@ -1,5 +1,6 @@
 const calendarGrid = document.querySelector('.calendar-grid');
 const timeColumn = document.querySelector('.time-column');
+const weekdayGrid = document.querySelector('.weekday-grid');
 const tripDestination = document.getElementById('tripDestination');
 const weekRange = document.getElementById('weekRange');
 const prevWeekBtn = document.getElementById('prevWeek');
@@ -12,13 +13,17 @@ let currentDate = new Date();
 let tripStart = new Date(localStorage.getItem('startDate'));
 let tripEnd = new Date(localStorage.getItem('endDate'));
 
-// Load trip destination and dates
+// Load trip destination and update week
 document.addEventListener('DOMContentLoaded', () => {
   const destination = localStorage.getItem('destination') || "your trip";
   tripDestination.innerHTML = `Packing List for <span>${destination}</span>`;
   updateWeek();
+  generateTimeLabels();
+  generateTimeSlots();
+});
 
-  // Generate time labels (6 AM - 8 PM)
+// Generate time labels (6 AM - 8 PM)
+function generateTimeLabels() {
   const times = ["6 AM", "7 AM", "8 AM", "9 AM", "10 AM", "11 AM", "Noon", 
                  "1 PM", "2 PM", "3 PM", "4 PM", "5 PM", "6 PM", "7 PM", "8 PM"];
   times.forEach(time => {
@@ -27,8 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
     label.innerText = time;
     timeColumn.appendChild(label);
   });
+}
 
-  // Generate time slots
+// Generate time slots
+function generateTimeSlots() {
   for (let i = 0; i < 7 * 15; i++) {
     const slot = document.createElement('div');
     slot.classList.add('time-slot');
@@ -39,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!isDragging) createEvent(e.target);
     });
   }
-});
+}
 
 // Update the displayed week
 function updateWeek() {
@@ -49,23 +56,37 @@ function updateWeek() {
   weekEnd.setDate(weekEnd.getDate() + 6);
 
   weekRange.innerText = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
-  highlightTripDays(weekStart, weekEnd);
+  generateWeekdays(weekStart);
 }
 
-// Highlight trip days
-function highlightTripDays(weekStart, weekEnd) {
-  const dayElements = document.querySelectorAll('.day');
-  dayElements.forEach((day, index) => {
-    const dayDate = new Date(weekStart);
-    dayDate.setDate(dayDate.getDate() + index);
-
-    if (dayDate >= tripStart && dayDate <= tripEnd) {
-      day.classList.add('selected');
-    } else {
-      day.classList.remove('selected');
-    }
-  });
+// Generate weekday names (Sun - Sat)
+function generateWeekdays(weekStart) {
+  weekdayGrid.innerHTML = ""; // Clear old days
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  
+  for (let i = 0; i < 7; i++) {
+    const dayElement = document.createElement('div');
+    dayElement.classList.add('day');
+    dayElement.innerText = `${days[i]} ${formatDate(new Date(weekStart.setDate(weekStart.getDate() + (i === 0 ? 0 : 1))))}`;
+    weekdayGrid.appendChild(dayElement);
+  }
 }
+
+// Move between weeks
+prevWeekBtn.addEventListener('click', () => {
+  currentDate.setDate(currentDate.getDate() - 7);
+  updateWeek();
+});
+
+nextWeekBtn.addEventListener('click', () => {
+  currentDate.setDate(currentDate.getDate() + 7);
+  updateWeek();
+});
+
+todayBtn.addEventListener('click', () => {
+  currentDate = new Date();
+  updateWeek();
+});
 
 // Create a new event
 function createEvent(slot) {
@@ -96,23 +117,10 @@ function createEvent(slot) {
   });
 }
 
-// Move to the previous week
-prevWeekBtn.addEventListener('click', () => {
-  currentDate.setDate(currentDate.getDate() - 7);
-  updateWeek();
-});
-
-// Move to the next week
-nextWeekBtn.addEventListener('click', () => {
-  currentDate.setDate(currentDate.getDate() + 7);
-  updateWeek();
-});
-
-// Return to today’s date
-todayBtn.addEventListener('click', () => {
-  currentDate = new Date();
-  updateWeek();
-});
+// Format date like "Mar 10"
+function formatDate(date) {
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
 
 // Toggle View
 document.getElementById('calendarViewBtn').addEventListener('click', () => {
@@ -122,8 +130,3 @@ document.getElementById('calendarViewBtn').addEventListener('click', () => {
 document.getElementById('compositeViewBtn').addEventListener('click', () => {
   window.location.href = 'composite.html';
 });
-
-// Format date like "Mar 10"
-function formatDate(date) {
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
