@@ -159,33 +159,6 @@ body {
   background-color: #0056b3;
 }
 
-/* ========== PACKING LIST OPTIONS (For Create List Page) ========== */
-.packing-options {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.toggle-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-}
-
-.toggle-container button {
-  padding: 10px 15px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.toggle-container button:hover {
-  background-color: #0056b3;
-}
-
 /* ========== FOOTER ========== */
 footer {
   text-align: center;

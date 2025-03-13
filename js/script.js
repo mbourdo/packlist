@@ -17,5 +17,5 @@ tripForm?.addEventListener('submit', function(event) {
     localStorage.setItem('activities', activities);
 
     // Redirect user to Calendar View page
-    window.location.href = 'calendar.html';
+    window.location.href = 'composite.html';
 });

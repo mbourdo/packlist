@@ -5,13 +5,48 @@ body {
   margin: 0;
 }
 
-/* ========== HEADER ========== */
+/* ========== TOP SECTION ========== */
 .top-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   margin-bottom: 10px;
+}
+
+.trip-info {
+  text-align: left;
+}
+
+.trip-info h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  color: #007bff;
+}
+
+.trip-info h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #666;
+}
+
+.view-toggle {
+  display: flex;
+  gap: 10px;
+}
+
+.view-toggle button {
+  padding: 8px 16px;
+  border: none;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.view-toggle button.active {
+  background: #0056b3;
 }
 
 /* ========== WEEK HEADER ========== */
@@ -75,12 +110,13 @@ body {
 /* ========== CALENDAR GRID ========== */
 .calendar-container {
   flex-grow: 1;
+  overflow-x: auto; /* Enable horizontal scrolling for long trips */
 }
 
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(15, 60px);
+  grid-template-rows: repeat(24, 60px); /* 24 hours, 60px per hour */
   border-left: 1px solid #ddd;
   position: relative;
 }

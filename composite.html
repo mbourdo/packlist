@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Composite Packing List - Packtor</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/composite.css">
 </head>
 <body>
 
@@ -20,14 +21,42 @@
     </nav>
   </header>
 
+  <!-- Header with Toggle Buttons -->
+  <div class="top-section">
+    <h2 id="tripDestination">Packing List for <span>...</span></h2>
+    <div class="view-toggle">
+      <button id="calendarViewBtn">Calendar View</button>
+      <button id="compositeViewBtn" class="active">Composite List</button>
+    </div>
+  </div>
+
   <main>
-    <h1>Composite Packing List</h1>
-    <p>Coming soon...</p>
+    <h2 id="tripDetails">Packing List for <span>...</span></h2>
+
+    <div class="packing-container">
+      <div class="input-container">
+        <button id="addItemBtn">+</button>
+        <input type="text" id="itemInput" placeholder="Add an item..." />
+        <input type="number" id="itemQuantity" min="1" value="1" placeholder="Qty" />
+        <select id="itemCategory">
+          <option value="Clothes">Clothes</option>
+          <option value="Toiletries">Toiletries</option>
+          <option value="Essentials">Essentials</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Accessories">Accessories</option>
+        </select>
+      </div>
+
+      <div id="subsections">
+        <!-- Subsections will be dynamically populated here -->
+      </div>
+    </div>
   </main>
 
   <footer>
     <p>&copy; 2025 Packtor. All rights reserved.</p>
   </footer>
 
+  <script src="js/composite.js"></script>
 </body>
 </html>
