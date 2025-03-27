@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .login-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  .login-box h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .login-box label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  .login-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 5px;
+  }
+  button {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button[type="submit"] {
+    background: #2a5df3;
+    color: white;
+  }
+  .create-account {
+    background: #ddd;
+  }

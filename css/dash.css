@@ -1,0 +1,134 @@
+/* ----------------------------------- */
+/* DASHBOARD STYLES FOR PACKLIST APP */
+/* ----------------------------------- */
+
+/* === List Grid === */
+.list-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 2rem;
+  gap: 1rem;
+}
+
+/* === List Card === */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  width: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.25rem;
+  margin: 0.5rem;
+}
+
+.card .title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.card div:nth-of-type(2),
+.card div:nth-of-type(3) {
+  font-size: 0.95rem;
+  color: #222;
+}
+
+.card .edit-icon,
+.card .menu-icon {
+  position: absolute;
+  top: 1rem;
+  font-size: 1.2rem;
+  color: #555;
+}
+
+.card .edit-icon {
+  right: 2rem;
+}
+
+.card .menu-icon {
+  right: 0.8rem;
+  cursor: pointer;
+}
+
+/* === New List Card === */
+.card.new-list {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  width: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0.5rem;
+  text-align: center;
+  color: #555;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.card.new-list:hover {
+  transform: scale(1.02);
+}
+
+.card.new-list strong {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #555;
+}
+
+.card.new-list div:first-child {
+  font-size: 2rem;
+  line-height: 2rem;
+}
+
+/* === Context Menu === */
+.context-menu {
+  position: absolute;
+  top: 2.5rem;
+  right: 0.5rem;
+  background: #444;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.context-menu.active {
+  display: flex;
+}
+
+.context-menu button {
+  display: block;
+  padding: 14px 1.2rem;
+  background: none;
+  color: white;
+  border: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+
+.context-menu button:hover {
+  background: #555;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .list-grid {
+    justify-content: center;
+  }
+}

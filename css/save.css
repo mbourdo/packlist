@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    text-align: center;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+  }
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2a5df3;
+  }
+  nav a {
+    margin-left: 1rem;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+  }
+  nav a.active {
+    color: #2a5df3;
+    border-bottom: 2px solid #2a5df3;
+  }
+  .save-screen {
+    margin-top: 5rem;
+  }
+  .save-screen h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  .save-screen p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .save-screen button {
+    padding: 10px 20px;
+    margin: 0 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #2a5df3;
+    color: white;
+  }

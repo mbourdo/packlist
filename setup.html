@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Up Trip - PackList</title>
+  <link rel="stylesheet" href="css/setup.css">
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">PackList</div>
+    <nav>
+      <a href="setup.html" class="active">New List</a>
+      <a href="dash.html">Dashboard</a>
+      <span class="icon">👤</span>
+    </nav>
+  </header>
+  <main>
+    <form id="setupForm">
+      <h1>Set Up Your Trip</h1>
+      <label>List Name:</label><input type="text" id="listName" required>
+      <label>Destination:</label><input type="text" id="destination" required>
+      <label>Start Date:</label><input type="date" id="startDate" required>
+      <label>End Date:</label><input type="date" id="endDate" required>
+      <button type="submit">Edit List →</button>
+    </form>
+  </main>
+  <script src="js/setup.js"></script>
+</body>
+</html>
