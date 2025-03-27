@@ -1,41 +1,81 @@
-const container = document.getElementById('listContainer');
-const index = localStorage.getItem('currentIndex');
-const lists = JSON.parse(localStorage.getItem('packlists')) || [];
-const list = lists[index];
+const defaultCategories = ["Clothes", "Toiletries", "Essentials"];
+let categoryCount = 0;
 
-function renderList() {
-  container.innerHTML = `<h2 contenteditable="true">${list.name}</h2><p>${list.startDate} - ${list.endDate}</p><p>${list.destination}</p>`;
-
-  list.categories.forEach((cat, i) => {
-    const catDiv = document.createElement('div');
-    catDiv.innerHTML = `<h3>${cat.title}</h3>`;
-
-    cat.items.forEach(item => {
-      const p = document.createElement('p');
-      p.textContent = `${item.qty}x ${item.name}`;
-      catDiv.appendChild(p);
-    });
-
-    const input = document.createElement('input');
-    input.placeholder = 'Add item (Quantity, Name)';
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        const [qty, ...rest] = input.value.split(/x|,| /);
-        const name = rest.join(' ').trim();
-        list.categories[i].items.push({ qty, name });
-        input.value = '';
-        renderList();
-      }
-    });
-    catDiv.appendChild(input);
-    container.appendChild(catDiv);
-  });
-}
-
-document.getElementById('saveButton').onclick = function () {
-  lists[index] = list;
-  localStorage.setItem('packlists', JSON.stringify(lists));
-  window.location.href = 'save.html';
+window.onload = () => {
+  defaultCategories.forEach(cat => addCategory(cat));
 };
 
-renderList();
+function goBack() {
+  window.history.back();
+}
+
+function saveList() {
+  alert("List saved.");
+}
+
+function addCategory(name = "New Category") {
+  const id = `cat-${categoryCount++}`;
+  const category = document.createElement("div");
+  category.classList.add("category");
+  category.setAttribute("data-id", id);
+
+  category.innerHTML = `
+    <div class="category-header">
+      <button class="collapse-btn" onclick="toggleCollapse('${id}')">▾</button>
+      <h3 contenteditable="true">${name}</h3>
+      <button class="delete-btn" onclick="deleteCategory('${id}')">x</button>
+    </div>
+    <div class="items" id="${id}-items">
+      <div class="add-item">
+        <input type="text" placeholder="+ Add item (Quantity, Name)" 
+               onkeypress="addItem(event, '${id}')">
+      </div>
+    </div>
+  `;
+
+  document.getElementById("category-list").appendChild(category);
+}
+
+function toggleCollapse(id) {
+  const items = document.getElementById(`${id}-items`);
+  items.classList.toggle("collapsed");
+}
+
+function deleteCategory(id) {
+  const cat = document.querySelector(`[data-id="${id}"]`);
+  if (cat && confirm("Delete this category?")) {
+    cat.remove();
+  }
+}
+
+function addItem(event, id) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const value = event.target.value.trim();
+    if (!value) return;
+
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const parsed = parseItem(value);
+    item.innerHTML = `
+      <input type="checkbox">
+      <span>${parsed}</span>
+      <button onclick="this.parentElement.remove()">x</button>
+    `;
+
+    const container = document.getElementById(`${id}-items`);
+    container.insertBefore(item, event.target.parentElement);
+    event.target.value = "";
+  }
+}
+
+function parseItem(input) {
+  const match = input.match(/^(\d+)[x,]?\s*(.+)$/i);
+  if (match) {
+    const qty = match[1];
+    const name = match[2];
+    return `${qty}x ${name}`;
+  }
+  return input;
+}
