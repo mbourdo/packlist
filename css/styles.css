@@ -66,6 +66,24 @@ body {
     vertical-align: bottom;
   }
   
+  /* === Login Page Header (Simplified) === */
+/* === Login Header (Simplified Nav) === */
+.login-header {
+  width: 100%;
+  background: #fff;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.login-header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2a5df3;
+}
+
+
+
   
   /* === Section/Progress Bar Placeholder === */
   .section-bar {
@@ -126,3 +144,71 @@ body {
   width: 100%;
 }
 
+
+/* ======================== */
+/* Mobile Responsiveness */
+/* ======================== */
+@media (max-width: 600px) {
+  /* Header/Nav Layout */
+  header {
+    flex-direction: row;        
+    justify-content: space-between; 
+    align-items: center;
+    padding: 1rem;
+  }
+
+
+  nav {
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .user-icon {
+    width: 24px;
+    height: 24px;
+    align-self: flex-end;
+    margin-top: 0.25rem;
+  }
+
+  /* General Card Padding */
+  .list-card,
+  .save-card,
+  form {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  /* Items stack better on small screen */
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .item span {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+
+  /* Input touch targets */
+  input[type="text"],
+  button {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+
+  .save-btn {
+    width: 100%;
+  }
+
+  .button-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .progress-bar-container {
+    padding: 1rem 1rem 0.5rem;
+  }
+}
