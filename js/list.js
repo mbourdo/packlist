@@ -1,4 +1,3 @@
-// === Load saved list based on current index ===
 const idx = localStorage.getItem("currentIndex");
 const lists = JSON.parse(localStorage.getItem("packlists")) || [];
 const saved = lists[idx];
@@ -7,128 +6,147 @@ const defaultCategories = ["Clothes", "Toiletries", "Essentials"];
 let categoryCount = 0;
 
 window.onload = () => {
-  if (saved) {
-    // === Set trip name, dates, and destination ===
-    document.querySelector(".list-info h2").textContent = saved.name;
-    document.querySelector(".list-info p:nth-of-type(1)").textContent =
-      formatDate(saved.startDate) + " - " + formatDate(saved.endDate);
-    document.querySelector(".list-info p:nth-of-type(2)").textContent =
-      saved.destination;
+  if (!saved) return;
 
-    // === Load default categories ===
-    defaultCategories.forEach(cat => addCategory(cat));
+  // Set list header
+  document.querySelector(".list-info h2").textContent = saved.name;
+  document.querySelector(".list-info p:nth-of-type(1)").textContent =
+    formatDate(saved.startDate) + " - " + formatDate(saved.endDate);
+  document.querySelector(".list-info p:nth-of-type(2)").textContent =
+    saved.destination;
+
+  // Prevent duplication by only loading defaults if categories don't exist
+  if (saved.categories && saved.categories.length > 0) {
+    saved.categories.forEach(cat => {
+      addCategory(cat.title, cat.items);
+    });
+  } else {
+    defaultCategories.forEach(title => addCategory(title));
   }
 };
 
-// === Format ISO date to mm/dd/yyyy ===
 function formatDate(iso) {
   const d = new Date(iso);
   return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 }
 
-// Back button → go to previous page in history
 function goBack() {
   window.history.back();
 }
 
-
-// === Save trip and go to Save page ===
 function saveList() {
-  const name = document.querySelector(".list-info h2").textContent;
-  localStorage.setItem("tripName", name);
+  localStorage.setItem("tripName", saved.name);
   window.location.href = "save.html";
 }
 
-// === Add a new category ===
-function addCategory(name = "New Category") {
+// Add a new category with optional items
+function addCategory(title = "New Category", items = []) {
   const id = `cat-${categoryCount++}`;
   const category = document.createElement("div");
   category.classList.add("category");
   category.setAttribute("data-id", id);
 
   category.innerHTML = `
-  <div class="category-header">
-    <div class="left-side">
-      <button class="collapse-btn" onclick="toggleCollapse('${id}')">▾</button>
-      <div class="cat-title-row">
-        <h3 contenteditable="true">${name}</h3>
-        <img src="assets/images/pencil-icon.png" class="edit-icon" onclick="focusEditable(this)" />
+    <div class="category-header">
+      <div class="left-side">
+        <button class="collapse-btn" onclick="toggleCollapse('${id}')">▾</button>
+        <div class="cat-title-row">
+          <h3 contenteditable="true" oninput="saveCurrentState()">${title}</h3>
+          <img src="assets/images/pencil-icon.png" class="edit-icon" onclick="focusPrevious(this)">
+        </div>
+      </div>
+      <button class="delete-btn" onclick="deleteCategory('${id}')">x</button>
+    </div>
+    <div class="items" id="${id}-items">
+      ${items.map(item => `
+        <div class="item">
+          <input type="checkbox" ${item.checked ? "checked" : ""} onchange="saveCurrentState()">
+          <span>${item.qty}x ${item.name}</span>
+          <button onclick="this.parentElement.remove(); saveCurrentState()">x</button>
+        </div>
+      `).join("")}
+      <div class="add-item">
+        <input type="text" placeholder="+ Add item (Quantity, Name)" 
+               onkeypress="addItem(event, '${id}')">
       </div>
     </div>
-    <button class="delete-btn" onclick="deleteCategory('${id}')">x</button>
-  </div>
-  <div class="items" id="${id}-items">
-    <!-- items will be inserted here -->
-    <div class="add-item">
-      <input type="text" placeholder="+ Add item (Quantity, Name)" 
-             onkeypress="addItem(event, '${id}')">
-    </div>
-  </div>
-`;
-
-
+  `;
 
   document.getElementById("category-list").appendChild(category);
+  saveCurrentState();
 }
 
-// === Collapse/expand category ===
 function toggleCollapse(id) {
   const items = document.getElementById(`${id}-items`);
   items.classList.toggle("collapsed");
 }
 
-// === Delete a category ===
 function deleteCategory(id) {
-  const cat = document.querySelector(`[data-id="${id}"]`);
-  if (cat && confirm("Delete this category?")) {
-    cat.remove();
+  const el = document.querySelector(`[data-id="${id}"]`);
+  if (el && confirm("Delete this category?")) {
+    el.remove();
+    saveCurrentState();
   }
 }
 
-// === Add an item when Enter key is pressed ===
 function addItem(event, id) {
   if (event.key === "Enter") {
     event.preventDefault();
     const value = event.target.value.trim();
     if (!value) return;
 
+    const parsed = parseItem(value);
     const item = document.createElement("div");
     item.className = "item";
 
-    const parsed = parseItem(value);
     item.innerHTML = `
-      <input type="checkbox">
+      <input type="checkbox" onchange="saveCurrentState()">
       <span>${parsed}</span>
-      <button onclick="this.parentElement.remove()">x</button>
+      <button onclick="this.parentElement.remove(); saveCurrentState()">x</button>
     `;
 
     const container = document.getElementById(`${id}-items`);
     container.insertBefore(item, event.target.parentElement);
     event.target.value = "";
+    saveCurrentState();
   }
 }
 
-// === Format item text to "2x Toothbrush" ===
 function parseItem(input) {
   const match = input.match(/^(\d+)[x,]?\s*(.+)$/i);
-  if (match) {
-    const qty = match[1];
-    const name = match[2];
-    return `${qty}x ${name}`;
-  }
-  return input;
+  return match ? `${match[1]}x ${match[2]}` : input;
 }
 
-// === Focus on editable title text when clicking ✏️ ===
-function focusTitle(pencil) {
-  const title = pencil.previousElementSibling;
-  title.focus();
+function focusPrevious(icon) {
+  const prev = icon.previousElementSibling;
+  if (prev && prev.isContentEditable) {
+    prev.focus();
+  }
+}
 
-  const range = document.createRange();
-  range.selectNodeContents(title);
-  range.collapse(false);
+function saveCurrentState() {
+  const updatedCategories = [];
 
-  const sel = window.getSelection();
-  sel.removeAllRanges();
-  sel.addRange(range);
+  document.querySelectorAll(".category").forEach(cat => {
+    const title = cat.querySelector("h3").textContent.trim();
+    const items = [];
+
+    cat.querySelectorAll(".item").forEach(item => {
+      const text = item.querySelector("span").textContent.trim();
+      const checkbox = item.querySelector("input[type='checkbox']");
+      const match = text.match(/^(\d+)x\s(.+)$/i);
+      if (match) {
+        items.push({
+          qty: match[1],
+          name: match[2],
+          checked: checkbox.checked
+        });
+      }
+    });
+
+    updatedCategories.push({ title, items });
+  });
+
+  lists[idx].categories = updatedCategories;
+  localStorage.setItem("packlists", JSON.stringify(lists));
 }
