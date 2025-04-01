@@ -71,7 +71,10 @@
   border: none;
   font-size: 1rem;
   cursor: pointer;
+  color: #2a6df4; 
+  margin-right: 0.75rem; /* To align with item delete x*/
 }
+
 
 .items {
   margin-top: 0.75rem;
@@ -187,4 +190,63 @@
 
 .progress-fill.save {
   width: 100%; /* when on Save step */
+}
+.list-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: nowrap;
+}
+
+.list-title-row h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.edit-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+
+.cat-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-grow: 1;
+  padding-left: 0.5rem;
+}
+
+.cat-title-row h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2a6df4;
+}
+
+.cat-title-row .edit-icon {
+  font-size: 1rem;
+  cursor: pointer;
+}
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.item input[type="checkbox"]:checked + span {
+  color: #888;                /* Lighter gray text */
+  text-decoration: line-through; /* Strikethrough */
 }

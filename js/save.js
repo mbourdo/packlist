@@ -1,8 +1,15 @@
-const idx = localStorage.getItem('currentIndex');
-const saved = JSON.parse(localStorage.getItem('packlists'))[idx];
-document.getElementById('listName').textContent = saved.name;
+// Load the current list by index
+const idx = parseInt(localStorage.getItem('currentIndex'));
+const packlists = JSON.parse(localStorage.getItem('packlists')) || [];
+const currentList = packlists[idx];
 
+// Show list name in confirmation
+if (currentList && currentList.name) {
+  const nameDisplay = document.getElementById('list-name');
+  nameDisplay.textContent = currentList.name;
+}
+
+// Back button → return to setup
 function goBack() {
-    window.history.back();
-  }
-  
+  window.location.href = 'setup.html';
+}
