@@ -16,25 +16,31 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   }
 
-  // Render all existing lists
   savedLists.forEach((list, index) => {
     const card = document.createElement('div');
     card.className = 'card';
-
     card.innerHTML = `
-      <div class="title">${list.name} <span class="edit-icon">✏️</span></div>
+      <div class="title">${list.name}</div>
       <div>${formatDate(list.startDate)} - ${formatDate(list.endDate)}</div>
       <div>${list.destination}</div>
       <span class="menu-icon">☰</span>
       <div class="context-menu">
-        <button class="edit">Edit</button>
+        <button class="edit">Rename</button>
         <button class="print">Print</button>
         <button class="duplicate">Duplicate</button>
         <button class="delete">Delete</button>
       </div>
     `;
-
-    // Menu interactions
+  
+    // === Entire card is clickable ===
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('.menu-icon') && !e.target.closest('.context-menu')) {
+        localStorage.setItem('currentIndex', index);
+        window.location.href = 'list.html';
+      }
+    });
+  
+    // === Show/hide menu ===
     const menu = card.querySelector('.context-menu');
     const menuIcon = card.querySelector('.menu-icon');
     menuIcon.addEventListener('click', (e) => {
@@ -45,19 +51,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', () => {
       menu.classList.remove('active');
     });
-
-    // Pencil and Edit button
-    card.querySelector('.edit-icon').addEventListener('click', () => {
-      localStorage.setItem('currentIndex', index);
-      window.location.href = 'list.html';
+  
+    // === Rename function ===
+    card.querySelector('.edit').addEventListener('click', (e) => {
+      e.stopPropagation();
+      const newName = prompt('Rename this list:', list.name);
+      if (newName && newName.trim()) {
+        savedLists[index].name = newName.trim();
+        localStorage.setItem('packlists', JSON.stringify(savedLists));
+        location.reload();
+      }
     });
-    card.querySelector('.edit').addEventListener('click', () => {
-      localStorage.setItem('currentIndex', index);
-      window.location.href = 'list.html';
-    });
-
-    // Print button
-    card.querySelector('.print').addEventListener('click', () => {
+  
+    // === Print function ===
+    card.querySelector('.print').addEventListener('click', (e) => {
+      e.stopPropagation();
       const printWindow = window.open('', '_blank');
       printWindow.document.write(`
         <html>
@@ -85,27 +93,29 @@ document.addEventListener('DOMContentLoaded', () => {
       `);
       printWindow.document.close();
     });
-
-    // Duplicate button
-    card.querySelector('.duplicate').addEventListener('click', () => {
+  
+    // === Duplicate ===
+    card.querySelector('.duplicate').addEventListener('click', (e) => {
+      e.stopPropagation();
       const duplicated = { ...list, name: `${list.name} (Copy)` };
       savedLists.push(duplicated);
       localStorage.setItem('packlists', JSON.stringify(savedLists));
       location.reload();
     });
-
-    // Delete button
-    card.querySelector('.delete').addEventListener('click', () => {
+  
+    // === Delete ===
+    card.querySelector('.delete').addEventListener('click', (e) => {
+      e.stopPropagation();
       if (confirm('Are you sure you want to delete this PackList? This action cannot be undone.')) {
         savedLists.splice(index, 1);
         localStorage.setItem('packlists', JSON.stringify(savedLists));
         location.reload();
       }
     });
-
+  
     listGrid.appendChild(card);
   });
-
+  
   // Add "New List" card
   const newCard = document.createElement('div');
   newCard.className = 'card new-list';

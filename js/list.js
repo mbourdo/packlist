@@ -1,3 +1,8 @@
+const idx = localStorage.getItem("currentIndex");
+const lists = JSON.parse(localStorage.getItem("packlists")) || [];
+
+const saved = lists[idx];
+
 const defaultCategories = ["Clothes", "Toiletries", "Essentials"];
 let categoryCount = 0;
 
@@ -6,12 +11,16 @@ window.onload = () => {
 };
 
 function goBack() {
-  window.history.back();
+  window.location.href = "setup.html";
 }
 
+
 function saveList() {
-  alert("List saved.");
+  const name = document.querySelector(".list-info h2").textContent;
+  localStorage.setItem("tripName", name);
+  window.location.href = "save.html";
 }
+
 
 function addCategory(name = "New Category") {
   const id = `cat-${categoryCount++}`;

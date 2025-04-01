@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="assets/favicon-white.png">
+  <link rel="icon" type="image/png" href="assets/images/favicon-blue.png">
   <title>Set Up Trip - PackList</title>
-  <link rel="stylesheet" href="css/setup.css">
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/setup.css">
 </head>
 <body>
   <header>
@@ -14,9 +14,24 @@
     <nav>
       <a href="setup.html" class="active">New List</a>
       <a href="dash.html">Dashboard</a>
-      <span class="icon">👤</span>
+      <a href="index.html">
+        <img src="assets/images/user-icon.png" alt="User Icon" class="icon user-icon">
+      </a>  
     </nav>
   </header>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-steps">
+      <span class="step active">Set Up</span>
+      <span class="step">Edit</span>
+      <span class="step">Save</span>
+    </div>
+    <div class="progress-line">
+      <div class="progress-fill setup"></div>
+    </div>
+  </div>
+
   <main>
     <form id="setupForm">
       <h1>Set Up Your Trip</h1>
@@ -27,6 +42,7 @@
       <button type="submit">Edit List →</button>
     </form>
   </main>
+
   <script src="js/setup.js"></script>
 </body>
 </html>

@@ -56,12 +56,16 @@ body {
     background-color: #2a6df4;
   }
   
-  .icon {
-    font-size: 1.4rem;
-    cursor: pointer;
+  .user-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
     margin-left: 1rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: -2px; /* This aligns it with text baseline */
+    display: inline-block;
+    vertical-align: bottom;
   }
+  
   
   /* === Section/Progress Bar Placeholder === */
   .section-bar {
@@ -77,3 +81,48 @@ body {
     font-weight: 600;
   }
   
+/* Progress Bar Styles */
+.progress-bar-container {
+  background: #f0f1f3;
+  padding: 1rem 2rem 0.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  max-width: 300px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #555;
+  position: relative;
+}
+
+.progress-steps .step.active {
+  color: #2a6df4;
+}
+
+.progress-line {
+  position: relative;
+  height: 2px;
+  background: #ccc;
+  margin: 0.4rem auto 0;
+  width: 300px;
+}
+
+.progress-fill {
+  position: absolute;
+  height: 2px;
+  background: #2a6df4;
+  top: 0;
+  left: 0;
+}
+
+.progress-fill.setup {
+  width: 0%;
+}
+.progress-fill.save {
+  width: 100%;
+}
+

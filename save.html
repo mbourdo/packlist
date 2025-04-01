@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Save - PackList</title>
-  <link rel="stylesheet" href="css/save.css">
+  <link rel="icon" href="assets/images/favicon-white.png" type="image/png" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/save.css" />
 </head>
 <body>
   <header>
@@ -13,15 +14,35 @@
     <nav>
       <a href="setup.html">New List</a>
       <a href="dash.html">Dashboard</a>
-      <span class="icon">👤</span>
+      <img src="assets/images/user-icon.png" class="icon" />
     </nav>
   </header>
-  <main class="save-screen">
-    <h1>Congratulations!</h1>
-    <p>You have saved <span id="listName"></span><br>PackList</p>
-    <button onclick="location.href='list.html'">← Keep Editing</button>
-    <button onclick="location.href='dash.html'">Dashboard →</button>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-steps">
+      <span class="step complete">Set Up</span>
+      <span class="step complete">Edit</span>
+      <span class="step active">Save</span>
+    </div>
+    <div class="progress-line">
+      <div class="progress-fill save"></div>
+    </div>
+  </div>
+
+
+  <main class="save-container">
+    <div class="save-card">
+      <button class="back-btn" onclick="goBack()">←</button>
+      <h2>Congratulations! 🎉</h2>
+      <p>You have saved your<br>PackList</p>
+      <div class="button-row">
+        <a href="list.html" class="btn outline">← Keep Editing</a>
+        <a href="dash.html" class="btn">Dashboard →</a>
+      </div>
+    </div>
   </main>
+
   <script src="js/save.js"></script>
 </body>
 </html>
