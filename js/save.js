@@ -9,7 +9,7 @@ if (currentList && currentList.name) {
   nameDisplay.textContent = currentList.name;
 }
 
-// Back button → return to setup
+// Back button → go to previous page in history
 function goBack() {
-  window.location.href = 'setup.html';
+  window.history.back();
 }

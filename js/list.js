@@ -26,10 +26,11 @@ function formatDate(iso) {
   return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 }
 
-// === Navigate back to setup page ===
+// Back button → go to previous page in history
 function goBack() {
-  window.location.href = "setup.html";
+  window.history.back();
 }
+
 
 // === Save trip and go to Save page ===
 function saveList() {
@@ -51,12 +52,13 @@ function addCategory(name = "New Category") {
       <button class="collapse-btn" onclick="toggleCollapse('${id}')">▾</button>
       <div class="cat-title-row">
         <h3 contenteditable="true">${name}</h3>
-        <img src="assets/images/pencil-icon.png" class="edit-icon" alt="Edit">
+        <img src="assets/images/pencil-icon.png" class="edit-icon" onclick="focusEditable(this)" />
       </div>
     </div>
     <button class="delete-btn" onclick="deleteCategory('${id}')">x</button>
   </div>
   <div class="items" id="${id}-items">
+    <!-- items will be inserted here -->
     <div class="add-item">
       <input type="text" placeholder="+ Add item (Quantity, Name)" 
              onkeypress="addItem(event, '${id}')">

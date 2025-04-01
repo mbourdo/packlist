@@ -186,31 +186,24 @@
   color: #2a6df4;
   margin-right: 0.75rem;
 }
+.items.collapsed {
+  display: none;
+}
 
 
 /* ------------------------------ */
 /*           ITEM LIST           */
 /* ------------------------------ */
 
-.items {
-  margin-top: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.items.collapsed {
-  display: none;
-}
-
+/* === Item Row Style === */
 .item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ddd;
+  padding: 0.6rem 0.25rem;
+  background: transparent;
+  cursor: pointer;
 }
 
 .item span {
@@ -219,18 +212,19 @@
   font-size: 0.95rem;
 }
 
-.item button {
-  background: none;
-  border: none;
-  color: #000;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-left: 1rem;
-}
-
 .item input[type="checkbox"]:checked + span {
   color: #888;
   text-decoration: line-through;
+}
+
+.item button {
+  background: none;
+  border: none;
+  color: #000000;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  margin-right: 0.5rem;
 }
 
 
@@ -238,14 +232,29 @@
 /*          ADD ITEM UI          */
 /* ------------------------------ */
 
+.add-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  margin-top: 0.75rem; /* spacing above add input */
+}
+
 .add-item input[type="text"] {
-  width: 100%;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  flex-grow: 1;
+  padding: 0.6rem 0.5rem;
+  border: none;
+  outline: none;
   font-size: 0.9rem;
+  background: transparent;
   box-sizing: border-box;
 }
+
+
+.item input[type="checkbox"]:checked + span {
+  color: #888;
+  text-decoration: line-through;
+}
+
 
 
 /* ------------------------------ */
@@ -260,7 +269,7 @@
   font-size: 0.95rem;
   margin-top: 1rem;
   cursor: pointer;
-  color: #333;
+  color: #888;
 }
 
 .save-btn {
