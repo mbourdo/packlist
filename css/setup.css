@@ -1,62 +1,46 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f5f7fa;
-  }
-  header {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid #ccc;
-    background: #fff;
-  }
-  .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #2a5df3;
-  }
-  nav a {
-    margin-left: 1rem;
-    text-decoration: none;
-    color: #555;
-    font-weight: bold;
-  }
-  nav a.active {
-    color: #2a5df3;
-    border-bottom: 2px solid #2a5df3;
-  }
-  main {
-    display: flex;
-    justify-content: center;
-    margin-top: 3rem;
-  }
-  form {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-  }
-  form label {
-    display: block;
-    margin-top: 1rem;
-    font-weight: bold;
-  }
-  form input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-  }
-  form button {
-    margin-top: 2rem;
-    width: 100%;
-    padding: 10px;
-    background: #2a5df3;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-    font-size: 1rem;
-  }
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+}
+
+/* === Setup Form Layout === */
+main {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+form {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+form button {
+  margin-top: 2rem;
+  width: 100%;
+  padding: 10px;
+  background: #2a5df3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+}
