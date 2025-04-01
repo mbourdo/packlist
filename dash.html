@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="assets/images/favicon-blue.png">
   <title>PackList Dashboard</title>
-  <link rel="stylesheet" href="css/dash.css" />
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/dash.css" />
 </head>
 <body>
+
+  <!-- Header -->
   <header>
     <div class="logo">PackList</div>
     <nav>
       <a href="setup.html">New List</a>
       <a href="dash.html" class="active">Dashboard</a>
-      <a href="index.html">
-        <img src="assets/images/user-icon.png" alt="User Icon" class="icon user-icon">
-      </a>      
+      <img src="assets/user-icon.png" class="icon" />
     </nav>
   </header>
 
@@ -25,12 +25,11 @@
     <h2>My Lists</h2>
   </div>
 
-  <main>
-    <div id="listGrid" class="list-grid">
-      <!-- Cards dynamically added by JS -->
-    </div>
-  </main>
+  <!-- Grid of Lists -->
+  <div class="list-grid" id="listGrid"></div>
 
+  <!-- Scripts -->
   <script src="js/dash.js"></script>
+
 </body>
 </html>

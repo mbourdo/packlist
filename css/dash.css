@@ -2,6 +2,81 @@
 /* DASHBOARD STYLES FOR PACKLIST APP */
 /* ----------------------------------- */
 
+/* === General Layout === */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f6f8fb;
+  color: #333;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0.5rem 2rem 0rem;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: #2a6df4;
+}
+
+nav {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-end;
+  position: relative;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #888;
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+
+nav a.active {
+  color: #2a6df4;
+  font-weight: 700;
+}
+
+nav a.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #2a6df4;
+}
+
+.icon {
+  font-size: 1.4rem;
+  cursor: pointer;
+  margin-left: 1rem;
+  margin-bottom: 0.2rem;
+  height: 24px;
+}
+
+/* === Section Bar === */
+.section-bar {
+  background: #f0f1f3;
+  padding: 1rem 2rem;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.section-bar h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
 /* === List Grid === */
 .list-grid {
   display: flex;
@@ -11,7 +86,7 @@
   gap: 1rem;
 }
 
-/* === List Card === */
+/* === Card Style === */
 .card {
   background: white;
   border-radius: 16px;
@@ -38,20 +113,13 @@
   color: #222;
 }
 
-.card .edit-icon,
+/* === Icons === */
 .card .menu-icon {
   position: absolute;
   top: 1rem;
+  right: 0.8rem;
   font-size: 1.2rem;
   color: #555;
-}
-
-.card .edit-icon {
-  right: 2rem;
-}
-
-.card .menu-icon {
-  right: 0.8rem;
   cursor: pointer;
 }
 
@@ -126,9 +194,73 @@
   background: #555;
 }
 
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  width: 90%;
+}
+
+.modal p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.modal small {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.modal button {
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal button.danger {
+  background-color: #d33;
+  color: white;
+}
+
+.modal button:not(.danger) {
+  background-color: #eee;
+  color: #333;
+}
+
+
 /* === Responsive === */
 @media (max-width: 768px) {
   .list-grid {
     justify-content: center;
+  }
+  header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  nav {
+    gap: 1rem;
   }
 }

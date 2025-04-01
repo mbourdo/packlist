@@ -2,6 +2,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const listGrid = document.getElementById('listGrid');
   const savedLists = JSON.parse(localStorage.getItem('packlists')) || [];
 
+  // Add delete confirmation modal
+  const modalHTML = `
+    <div id="deleteModal" class="modal-overlay" style="display:none;">
+      <div class="modal">
+        <p>Are you sure you want to delete this PackList?<br><small>This action cannot be undone</small></p>
+        <div class="buttons">
+          <button id="cancelDelete">Cancel</button>
+          <button id="confirmDelete" class="danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+  let deleteIndex = null;
+  const modal = document.getElementById('deleteModal');
+  const cancelBtn = document.getElementById('cancelDelete');
+  const confirmBtn = document.getElementById('confirmDelete');
+
+  cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    deleteIndex = null;
+  });
+
+  confirmBtn.addEventListener('click', () => {
+    if (deleteIndex !== null) {
+      savedLists.splice(deleteIndex, 1);
+      localStorage.setItem('packlists', JSON.stringify(savedLists));
+      location.reload();
+    }
+  });
+
   // Redirect to login when user icon is clicked
   const profileIcon = document.querySelector('.icon');
   if (profileIcon) {
@@ -31,16 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="delete">Delete</button>
       </div>
     `;
-  
-    // === Entire card is clickable ===
+
+    // Entire card is clickable
     card.addEventListener('click', (e) => {
       if (!e.target.closest('.menu-icon') && !e.target.closest('.context-menu')) {
         localStorage.setItem('currentIndex', index);
         window.location.href = 'list.html';
       }
     });
-  
-    // === Show/hide menu ===
+
+    // Show/hide menu
     const menu = card.querySelector('.context-menu');
     const menuIcon = card.querySelector('.menu-icon');
     menuIcon.addEventListener('click', (e) => {
@@ -51,8 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('click', () => {
       menu.classList.remove('active');
     });
-  
-    // === Rename function ===
+
+    // Rename
     card.querySelector('.edit').addEventListener('click', (e) => {
       e.stopPropagation();
       const newName = prompt('Rename this list:', list.name);
@@ -62,8 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
         location.reload();
       }
     });
-  
-    // === Print function ===
+
+    // Print
     card.querySelector('.print').addEventListener('click', (e) => {
       e.stopPropagation();
       const printWindow = window.open('', '_blank');
@@ -93,8 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
       `);
       printWindow.document.close();
     });
-  
-    // === Duplicate ===
+
+    // Duplicate
     card.querySelector('.duplicate').addEventListener('click', (e) => {
       e.stopPropagation();
       const duplicated = { ...list, name: `${list.name} (Copy)` };
@@ -102,21 +134,18 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('packlists', JSON.stringify(savedLists));
       location.reload();
     });
-  
-    // === Delete ===
+
+    // Delete
     card.querySelector('.delete').addEventListener('click', (e) => {
       e.stopPropagation();
-      if (confirm('Are you sure you want to delete this PackList? This action cannot be undone.')) {
-        savedLists.splice(index, 1);
-        localStorage.setItem('packlists', JSON.stringify(savedLists));
-        location.reload();
-      }
+      deleteIndex = index;
+      modal.style.display = 'flex';
     });
-  
+
     listGrid.appendChild(card);
   });
-  
-  // Add "New List" card
+
+  // Add New List card
   const newCard = document.createElement('div');
   newCard.className = 'card new-list';
   newCard.innerHTML = `
@@ -130,4 +159,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   listGrid.appendChild(newCard);
 });
-
