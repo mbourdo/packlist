@@ -1,4 +1,6 @@
-/* List Page Specific Styles */
+/* ------------------------------ */
+/*      LIST PAGE CONTAINER      */
+/* ------------------------------ */
 
 .list-container {
   padding: 2rem;
@@ -18,6 +20,11 @@
 .list-header {
   margin-bottom: 1rem;
 }
+
+
+/* ------------------------------ */
+/*        TOP BAR: HEADER        */
+/* ------------------------------ */
 
 .back-and-info {
   display: flex;
@@ -43,110 +50,11 @@
   margin: 0.2rem 0;
 }
 
-.category {
-  background: #f5f5f5;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
 
-.category-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+/* ------------------------------ */
+/*        PROGRESS BAR UI        */
+/* ------------------------------ */
 
-.category-header h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #2a6df4;
-  margin: 0;
-  flex-grow: 1;
-  padding-left: 0.5rem;
-}
-
-.collapse-btn,
-.delete-btn {
-  background: none;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  color: #2a6df4; 
-  margin-right: 0.75rem; /* To align with item delete x*/
-}
-
-
-.items {
-  margin-top: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.items.collapsed {
-  display: none;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: white;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.item span {
-  flex-grow: 1;
-  margin-left: 0.5rem;
-  font-size: 0.95rem;
-}
-
-.item button {
-  background: none;
-  border: none;
-  color: #000;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-left: 1rem;
-}
-
-.add-item input[type="text"] {
-  width: 100%;
-  padding: 0.4rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  box-sizing: border-box; /* Ensures padding doesn't overflow */
-}
-
-
-.add-category {
-  background: #eee;
-  border: none;
-  border-radius: 8px;
-  padding: 0.6rem 1rem;
-  font-size: 0.95rem;
-  margin-top: 1rem;
-  cursor: pointer;
-  color: #333;
-}
-
-.save-btn {
-  background-color: #2a6df4;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 0.6rem 1.5rem;
-  font-weight: bold;
-  font-size: 1rem;
-  margin-top: 1.5rem;
-  float: right;
-  cursor: pointer;
-}
-
-/* === Progress Bar === */
 .progress-bar-container {
   background: #f0f1f3;
   padding: 1rem 2rem 0.5rem;
@@ -185,12 +93,18 @@
 }
 
 .progress-fill.edit {
-  width: 50%; /* stops after "Edit" */
+  width: 50%;
 }
 
 .progress-fill.save {
-  width: 100%; /* when on Save step */
+  width: 100%;
 }
+
+
+/* ------------------------------ */
+/*        LIST TITLE ROW         */
+/* ------------------------------ */
+
 .list-title-row {
   display: flex;
   align-items: center;
@@ -206,14 +120,29 @@
   white-space: nowrap;
 }
 
-.edit-icon {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
-  margin-left: 0.5rem;
-  vertical-align: middle;
+
+/* ------------------------------ */
+/*        CATEGORY SECTION       */
+/* ------------------------------ */
+
+.category {
+  background: #f5f5f5;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 
 .cat-title-row {
   display: flex;
@@ -234,19 +163,128 @@
   font-size: 1rem;
   cursor: pointer;
 }
-.category-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+
+/* ------------------------------ */
+/*     COLLAPSE & DELETE BUTTONS */
+/* ------------------------------ */
+
+.collapse-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #2a6df4;
+  margin-right: 0.25rem;
 }
 
-.left-side {
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #2a6df4;
+  margin-right: 0.75rem;
+}
+
+
+/* ------------------------------ */
+/*           ITEM LIST           */
+/* ------------------------------ */
+
+.items {
+  margin-top: 0.75rem;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 0.5rem;
 }
 
+.items.collapsed {
+  display: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.item span {
+  flex-grow: 1;
+  margin-left: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.item button {
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: 1rem;
+}
+
 .item input[type="checkbox"]:checked + span {
-  color: #888;                /* Lighter gray text */
-  text-decoration: line-through; /* Strikethrough */
+  color: #888;
+  text-decoration: line-through;
+}
+
+
+/* ------------------------------ */
+/*          ADD ITEM UI          */
+/* ------------------------------ */
+
+.add-item input[type="text"] {
+  width: 100%;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
+
+/* ------------------------------ */
+/*     ADD CATEGORY & SAVE BTN   */
+/* ------------------------------ */
+
+.add-category {
+  background: #eee;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1rem;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.save-btn {
+  background-color: #2a6df4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+  float: right;
+  cursor: pointer;
+}
+
+
+/* ------------------------------ */
+/*         GLOBAL ICONS          */
+/* ------------------------------ */
+
+.edit-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }
