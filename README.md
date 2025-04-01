@@ -5,7 +5,7 @@ PackList is a packing list web app designed to help you organize your trips with
 ## 🚀 Live Site
 
 Access the app here:  
-👉 [https://mbourdo.github.io/packtor/](https://mbourdo.github.io/packtor/)
+👉 [https://mbourdo.github.io/packlist/](https://mbourdo.github.io/packlist/)
 
 ## Author
 Michelle Bourdon
