@@ -297,3 +297,8 @@
   margin-left: 0.5rem;
   vertical-align: middle;
 }
+
+.item.dragging {
+  opacity: 0.5;
+  border: 1px dashed #aaa;
+}
