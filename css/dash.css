@@ -71,7 +71,7 @@ body {
   border-radius: 6px;
   display: none;
   flex-direction: column;
-  z-index: 1000;
+  z-index: 10;
   min-width: 120px;
 }
 
@@ -115,7 +115,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* match or exceed .modal-overlay */
+  z-index: 100; /* match or exceed .modal-overlay */
 }
 
 /* Delete Modal Box */
@@ -127,7 +127,7 @@ body {
   width: 100%;
   text-align: center;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1001;
+  z-index: 101;
 }
 
 .modal .buttons {
