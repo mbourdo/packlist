@@ -69,5 +69,15 @@ button[type="submit"] {
 }
 
 .create-account {
-  background: #ddd;
+  background: white;
+  color: #2a5df3;
+  border: 2px solid #2a5df3;
+  font-weight: bold;
+  transition: background 0.2s, color 0.2s;
 }
+
+.create-account:hover {
+  background: #e9f0ff;
+  cursor: pointer;
+}
+
