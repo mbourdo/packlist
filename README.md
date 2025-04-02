@@ -8,6 +8,5 @@ Access the app here:
 👉 [https://mbourdo.github.io/packlist/](https://mbourdo.github.io/packlist/)
 
 ## Author
-Michelle Bourdon
-For CS4474 HCI 
+Michelle Bourdon, CS4474 HCI 
 
