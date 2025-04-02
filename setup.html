@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="assets/images/favicon-blue.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="assets/images/favicon-blue.png" />
   <title>Set Up Trip - PackList</title>
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="stylesheet" href="css/setup.css">
+  <link rel="stylesheet" href="css/setup.css" />
 </head>
 <body>
   <header>
@@ -15,8 +15,8 @@
       <a href="setup.html" class="active">New List</a>
       <a href="dash.html">Dashboard</a>
       <a href="index.html">
-        <img src="assets/images/user-icon.png" alt="User Icon" class="user-icon">
-      </a>  
+        <img src="assets/images/user-icon.png" alt="User Icon" class="user-icon" />
+      </a>      
     </nav>
   </header>
 
@@ -32,17 +32,27 @@
     </div>
   </div>
 
-  <main>
+  <main class="setup-container">
     <form id="setupForm">
       <h1>Set Up Your Trip</h1>
-      <label>List Name:</label><input type="text" id="listName" required>
-      <label>Destination:</label><input type="text" id="destination" required>
-      <label>Start Date:</label><input type="date" id="startDate" required>
-      <label>End Date:</label><input type="date" id="endDate" required>
+
+      <label for="listName">List Name:</label>
+      <input type="text" id="listName" required />
+
+      <label for="destination">Destination:</label>
+      <input type="text" id="destination" required />
+
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" required />
+
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" required />
+
       <button type="submit">Edit List →</button>
     </form>
   </main>
 
-  <script src="js/setup.js"></script>
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/setup.js"></script>
 </body>
 </html>

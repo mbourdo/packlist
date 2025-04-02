@@ -151,8 +151,8 @@ body {
 @media (max-width: 600px) {
   /* Header/Nav Layout */
   header {
-    flex-direction: row;        
-    justify-content: space-between; 
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     padding: 1rem;
   }
@@ -169,9 +169,11 @@ body {
   .user-icon {
     width: 24px;
     height: 24px;
-    align-self: flex-end;
-    margin-top: 0.25rem;
+    object-fit: contain;
+    vertical-align: bottom; 
+    margin-bottom: -2px;  
   }
+
 
   /* General Card Padding */
   .list-card,

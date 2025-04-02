@@ -1,43 +1,59 @@
-const idx = localStorage.getItem("currentIndex");
-const lists = JSON.parse(localStorage.getItem("packlists")) || [];
-const saved = lists[idx];
+// Firebase imports
+import { db } from './firebase.js';
+import {
+  doc,
+  getDoc,
+  updateDoc
+} from 'https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js';
 
-const defaultCategories = ["Clothes", "Toiletries", "Essentials"];
+let currentListId = localStorage.getItem("currentListId");
+let currentListData = null;
 let categoryCount = 0;
 
-window.onload = () => {
-  if (!saved) return;
+// === Load List from Firestore ===
+async function loadListFromFirestore() {
+  const docRef = doc(db, "packlists", currentListId);
+  const docSnap = await getDoc(docRef);
 
-  // Set list title, dates, and destination
-  document.querySelector(".list-info h2").textContent = saved.name;
-  document.querySelector(".list-info p:nth-of-type(1)").textContent =
-    formatDate(saved.startDate) + " - " + formatDate(saved.endDate);
-  document.querySelector(".list-info p:nth-of-type(2)").textContent =
-    saved.destination;
-
-  // Load categories
-  if (saved.categories && saved.categories.length > 0) {
-    saved.categories.forEach(cat => addCategory(cat.title, cat.items));
-  } else {
-    defaultCategories.forEach(title => addCategory(title));
+  if (!docSnap.exists()) {
+    alert("List not found.");
+    return;
   }
-};
 
+  const list = docSnap.data();
+  currentListData = list;
+
+  // Show trip info
+  document.querySelector(".list-info h2").textContent = list.name || "Trip Name";
+  document.querySelector(".list-info p:nth-of-type(1)").textContent =
+    formatDate(list.startDate) + " - " + formatDate(list.endDate);
+  document.querySelector(".list-info p:nth-of-type(2)").textContent =
+    list.destination || "Destination here";
+
+  // Clear existing categories
+  const container = document.getElementById("category-list");
+  container.innerHTML = "";
+  categoryCount = 0;
+
+  // Load saved categories or defaults
+  if (list.categories && list.categories.length > 0) {
+    list.categories.forEach(cat => {
+      addCategory(cat.title, cat.items || []);
+    });
+  } else {
+    addCategory("Clothes");
+    addCategory("Toiletries");
+    addCategory("Essentials");
+  }
+}
+
+// === Format date
 function formatDate(iso) {
   const d = new Date(iso);
   return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
 }
 
-function goBack() {
-  window.history.back();
-}
-
-function saveList() {
-  localStorage.setItem("tripName", saved.name);
-  window.location.href = "save.html";
-}
-
-// Add category with optional items
+// === Add Category Section
 function addCategory(title = "New Category", items = []) {
   const id = `cat-${categoryCount++}`;
   const category = document.createElement("div");
@@ -58,8 +74,7 @@ function addCategory(title = "New Category", items = []) {
     <div class="items" id="${id}-items">
       ${items.map(item => createItemHTML(item.qty, item.name, item.checked)).join("")}
       <div class="add-item">
-        <input type="text" placeholder="+ Add item (Quantity, Name)" 
-               onkeypress="addItem(event, '${id}')">
+        <input type="text" placeholder="+ Add item (Quantity, Name)" onkeypress="addItem(event, '${id}')">
       </div>
     </div>
   `;
@@ -69,57 +84,10 @@ function addCategory(title = "New Category", items = []) {
   saveCurrentState();
 }
 
-// Collapse toggle
-function toggleCollapse(id) {
-  const items = document.getElementById(`${id}-items`);
-  items.classList.toggle("collapsed");
-}
-
-// Delete category
-function deleteCategory(id) {
-  const el = document.querySelector(`[data-id="${id}"]`);
-  if (el && confirm("Delete this category?")) {
-    el.remove();
-    saveCurrentState();
-  }
-}
-
-// Add item by typing
-function addItem(event, id) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    const input = event.target;
-    const value = input.value.trim();
-    if (!value) return;
-
-    const parsed = parseItem(value);
-    const item = document.createElement("div");
-    item.className = "item";
-    item.setAttribute("draggable", "true");
-
-    item.innerHTML = `
-      <input type="checkbox" onchange="saveCurrentState()">
-      <span>${parsed}</span>
-      <button onclick="this.parentElement.remove(); saveCurrentState()">x</button>
-    `;
-
-    input.closest(".items").insertBefore(item, input.parentElement);
-    input.value = "";
-    enableDrag(id);
-    saveCurrentState();
-  }
-}
-
-// Format quantity input
-function parseItem(input) {
-  const match = input.match(/^(\d+)[x,]?\s*(.+)$/i);
-  return match ? `${match[1]}x ${match[2]}` : input;
-}
-
-// Create inner HTML for existing items
+// === Create HTML for Item
 function createItemHTML(qty, name, checked) {
   return `
-    <div class="item" draggable="true">
+    <div class="item">
       <input type="checkbox" ${checked ? "checked" : ""} onchange="saveCurrentState()">
       <span>${qty}x ${name}</span>
       <button onclick="this.parentElement.remove(); saveCurrentState()">x</button>
@@ -127,51 +95,42 @@ function createItemHTML(qty, name, checked) {
   `;
 }
 
-// Click pencil to edit previous
-function focusPrevious(icon) {
-  const prev = icon.previousElementSibling;
-  if (prev && prev.isContentEditable) {
-    prev.focus();
+// === Parse item input
+function parseItem(input) {
+  const match = input.match(/^(\d+)[x,]?\s*(.+)$/i);
+  return match ? { qty: match[1], name: match[2] } : { qty: "1", name: input };
+}
+
+// === Add Item
+function addItem(event, id) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    const input = event.target;
+    const value = input.value.trim();
+    if (!value) return;
+
+    const { qty, name } = parseItem(value);
+    const item = document.createElement("div");
+    item.className = "item";
+
+    item.innerHTML = `
+      <input type="checkbox" onchange="saveCurrentState()">
+      <span>${qty}x ${name}</span>
+      <button onclick="this.parentElement.remove(); saveCurrentState()">x</button>
+    `;
+
+    const container = document.getElementById(`${id}-items`);
+    container.insertBefore(item, input.parentElement);
+    input.value = "";
+    enableDrag(id);
+    saveCurrentState();
   }
 }
 
-// Enable drag and drop
-function enableDrag(id) {
-  const container = document.getElementById(`${id}-items`);
-  const items = container.querySelectorAll(".item");
+// === Save All Categories & Items
+async function saveCurrentState() {
+  if (!currentListId) return;
 
-  items.forEach(item => {
-    item.addEventListener("dragstart", () => {
-      item.classList.add("dragging");
-    });
-
-    item.addEventListener("dragend", () => {
-      item.classList.remove("dragging");
-      saveCurrentState();
-    });
-
-    item.addEventListener("dragover", (e) => {
-      e.preventDefault();
-    });
-
-    item.addEventListener("drop", (e) => {
-      e.preventDefault();
-      const dragging = container.querySelector(".dragging");
-      if (dragging && dragging !== item) {
-        const bounding = item.getBoundingClientRect();
-        const offset = e.clientY - bounding.top;
-        if (offset > bounding.height / 2) {
-          item.after(dragging);
-        } else {
-          item.before(dragging);
-        }
-      }
-    });
-  });
-}
-
-// Save state of all items/categories
-function saveCurrentState() {
   const updatedCategories = [];
 
   document.querySelectorAll(".category").forEach(cat => {
@@ -194,6 +153,95 @@ function saveCurrentState() {
     updatedCategories.push({ title, items });
   });
 
-  lists[idx].categories = updatedCategories;
-  localStorage.setItem("packlists", JSON.stringify(lists));
+  await updateDoc(doc(db, "packlists", currentListId), {
+    categories: updatedCategories
+  });
 }
+
+// === Collapse/Expand Category
+function toggleCollapse(id) {
+  const items = document.getElementById(`${id}-items`);
+  items.classList.toggle("collapsed");
+}
+
+// === Delete Category
+function deleteCategory(id) {
+  const el = document.querySelector(`[data-id="${id}"]`);
+  if (el && confirm("Delete this category?")) {
+    el.remove();
+    saveCurrentState();
+  }
+}
+
+// === Pencil Focus
+function focusPrevious(icon) {
+  const prev = icon.previousElementSibling;
+  if (prev && prev.isContentEditable) {
+    prev.focus();
+  }
+}
+
+// === Drag & Drop Support
+function enableDrag(id) {
+  const container = document.getElementById(`${id}-items`);
+  const items = container.querySelectorAll(".item");
+
+  items.forEach(item => {
+    item.setAttribute("draggable", true);
+
+    item.addEventListener("dragstart", () => {
+      item.classList.add("dragging");
+    });
+
+    item.addEventListener("dragend", () => {
+      item.classList.remove("dragging");
+      saveCurrentState();
+    });
+
+    item.addEventListener("dragover", e => e.preventDefault());
+
+    item.addEventListener("drop", e => {
+      e.preventDefault();
+      const dragging = container.querySelector(".dragging");
+      if (dragging && dragging !== item) {
+        const rect = item.getBoundingClientRect();
+        const offset = e.clientY - rect.top;
+        if (offset > rect.height / 2) {
+          item.after(dragging);
+        } else {
+          item.before(dragging);
+        }
+      }
+    });
+  });
+}
+
+// === Navigation
+function goBack() {
+  window.history.back();
+}
+
+function saveList() {
+  localStorage.setItem("tripName", currentListData.name);
+  window.location.href = "save.html";
+}
+
+// === Setup
+window.onload = () => {
+  loadListFromFirestore();
+
+  const addCategoryBtn = document.getElementById("addCategoryBtn");
+  if (addCategoryBtn) {
+    addCategoryBtn.addEventListener("click", () => {
+      addCategory();
+    });
+  }
+};
+
+// === Global Functions for HTML
+window.goBack = goBack;
+window.saveList = saveList;
+window.addItem = addItem;
+window.toggleCollapse = toggleCollapse;
+window.deleteCategory = deleteCategory;
+window.focusPrevious = focusPrevious;

@@ -1,15 +1,30 @@
-// Load the current list by index
-const idx = parseInt(localStorage.getItem('currentIndex'));
-const packlists = JSON.parse(localStorage.getItem('packlists')) || [];
-const currentList = packlists[idx];
+import { db, auth } from "./firebase.js";
+import {
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-// Show list name in confirmation
-if (currentList && currentList.name) {
-  const nameDisplay = document.getElementById('list-name');
-  nameDisplay.textContent = currentList.name;
-}
+// Grab the list ID from localStorage
+const listId = localStorage.getItem("currentListId");
 
-// Back button → go to previous page in history
-function goBack() {
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    const listRef = doc(db, "users", user.uid, "lists", listId);
+    const docSnap = await getDoc(listRef);
+
+    if (docSnap.exists()) {
+      const list = docSnap.data();
+      document.getElementById("list-name").textContent = list.name;
+    } else {
+      document.getElementById("list-name").textContent = "your trip";
+    }
+  } else {
+    // Redirect to login if not signed in
+    window.location.href = "index.html";
+  }
+});
+
+// Optional back button → goes to previous page
+window.goBack = function () {
   window.history.back();
-}
+};
