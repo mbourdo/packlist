@@ -15,8 +15,6 @@ auth.onAuthStateChanged(async (user) => {
     if (docSnap.exists()) {
       const list = docSnap.data();
       document.getElementById("list-name").textContent = list.name;
-    } else {
-      document.getElementById("list-name").textContent = "your trip";
     }
   } else {
     // Redirect to login if not signed in
